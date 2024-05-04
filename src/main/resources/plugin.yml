@@ -1,0 +1,6 @@
+name: SimplexDiscord
+version: '${project.version}'
+main: me.ry4nn00b.simplexdiscord.Main
+api-version: '1.20'
+authors: [ Ry4nN00B ]
+description: Plugin sincronizador de contas entre o Minecraft e o Discord.
