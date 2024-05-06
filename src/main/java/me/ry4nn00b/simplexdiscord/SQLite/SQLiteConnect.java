@@ -38,7 +38,6 @@ public class SQLiteConnect {
         if(con != null) {
             try {
                 con.close();
-                file.delete();
                 Bukkit.getConsoleSender().sendMessage(prefix + "§aA conexão com o SQLite foi fechada!");
             } catch (SQLException e) {
                 Bukkit.getConsoleSender().sendMessage(prefix + "§cNão foi possível encerrar a conexão com o SQLite!");
