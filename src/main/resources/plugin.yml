@@ -1,6 +1,13 @@
 name: SimplexDiscord
-version: '${project.version}'
+version: 1.0
 main: me.ry4nn00b.simplexdiscord.Main
 api-version: '1.20'
 authors: [ Ry4nN00B ]
-description: Plugin sincronizador de contas entre o Minecraft e o Discord.
+description: Plugin para vinculação de contas e cargos do Discord com o Minecraft.
+commands:
+  vincular:
+    description: Utilizado para mostrar informações da conta.
+  sdaceitar:
+    description: Usado apara aceitar a desvinculação.
+  sdrecusar:
+    description: Usado apara recusar a desvinculação.

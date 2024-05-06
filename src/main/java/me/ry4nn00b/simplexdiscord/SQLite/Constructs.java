@@ -1,6 +1,6 @@
-package me.ry4nn00b.modes.SQLite;
+package me.ry4nn00b.simplexdiscord.SQLite;
 
-import me.ry4nn00b.modes.Main;
+import me.ry4nn00b.simplexdiscord.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class Constructs {
 
-    public static String prefix = "[RStore-Modos] ";
+    public static String prefix = Main.prefix;
     public static Main plugin;
 
     public static void CreateTable() {
@@ -20,29 +20,27 @@ public class Constructs {
 
         try {
 
-            stm = SQLiteConnect.con.prepareStatement("CREATE TABLE IF NOT EXISTS `modesDatabase`(Player_UUID VARCHAR(36), Player_Name VARCHAR(24), Modos TEXT, ActiveModes TEXT);");
+            stm = SQLiteConnect.con.prepareStatement("CREATE TABLE IF NOT EXISTS `discordDatabase`(Player_UUID VARCHAR(36), Player_Name VARCHAR(24), MemberID TEXT, MemberName TEXT, MemberCode TEXT, Date TEXT, Hours TEXT);");
             stm.executeUpdate();
-            Bukkit.getConsoleSender().sendMessage(prefix + "A tabela do SQLite foi criada com sucesso!");
+            Bukkit.getConsoleSender().sendMessage(prefix + "§aA tabela do SQLite foi criada com sucesso!");
 
             stm.close();
 
         } catch (SQLException e) {
 
             e.printStackTrace();
-            Bukkit.getConsoleSender().sendMessage(prefix + "Não foi possível criar a tabela no SQLite, desligando o plugin!");
+            Bukkit.getConsoleSender().sendMessage(prefix + "§cNão foi possível criar a tabela no SQLite, desligando o plugin!");
             plugin.getPluginLoader().disablePlugin(plugin);
 
         }
 
     }
 
-    //Get or Add Player-------------------------------------------------------------------------------------------------
-
     public static boolean hasPlayerTable(Player player) {
 
         try {
 
-            String hasPlayer = "SELECT `Player_UUID` FROM `modesDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
+            String hasPlayer = "SELECT `Player_UUID` FROM `discordDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
 
             Connection con = SQLiteConnect.con;
             PreparedStatement statement = con.prepareStatement(hasPlayer);
@@ -66,7 +64,7 @@ public class Constructs {
 
         try {
 
-            String addPlayer = "INSERT INTO `modesDatabase`(`Player_UUID`, `Player_Name`, `Modos`, `ActiveModes`) VALUES ('" + player.getUniqueId().toString() + "','" + player.getName() + "', 'Nenhum', '0')";
+            String addPlayer = "INSERT INTO `discordDatabase`(`Player_UUID`, `Player_Name`, `MemberID`, `MemberName`, `MemberCode`, `Date`, `Hours`) VALUES ('" + player.getUniqueId() + "','" + player.getName() + "', 'Nenhum', 'Nenhuma', '0', '0', '0')";
 
             Connection con = SQLiteConnect.con;
             PreparedStatement statement = con.prepareStatement(addPlayer);
@@ -80,19 +78,17 @@ public class Constructs {
 
     }
 
-    //Modes_____________________________________________________________________________________________________________
-
-    public static String getPlayerModo(Player player) {
+    public static String getMemberID(Player player) {
 
         try {
 
-            String getPlayerModos = "SELECT `Modos` FROM `modesDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
+            String getMemberID = "SELECT `MemberID` FROM `discordDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
 
             Connection con = SQLiteConnect.con;
-            PreparedStatement statement = con.prepareStatement(getPlayerModos);
+            PreparedStatement statement = con.prepareStatement(getMemberID);
             ResultSet resultSet = statement.executeQuery();
 
-            return resultSet.getString("Modos");
+            return resultSet.getString("MemberID");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,14 +98,14 @@ public class Constructs {
 
     }
 
-    public static void setPlayerModo(Player player, String modo) {
+    public static void setMemberID(Player player, String memberID) {
 
         try {
 
-            String setPlayerModo = "UPDATE `modesDatabase` SET `Modos`='" + modo + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
+            String setMemberID = "UPDATE `discordDatabase` SET `MemberID`='" + memberID + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
 
             Connection con = SQLiteConnect.con;
-            PreparedStatement statement = con.prepareStatement(setPlayerModo);
+            PreparedStatement statement = con.prepareStatement(setMemberID);
             statement.executeUpdate();
 
         } catch (Exception e) {
@@ -118,18 +114,17 @@ public class Constructs {
 
     }
 
-    //ActiveModes_______________________________________________________________________________________________________
-    public static String getActiveModes(Player player) {
+    public static String getMemberName(Player player) {
 
         try {
 
-            String getPlayerModos = "SELECT `ActiveModes` FROM `modesDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
+            String getMemberName = "SELECT `MemberName` FROM `discordDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
 
             Connection con = SQLiteConnect.con;
-            PreparedStatement statement = con.prepareStatement(getPlayerModos);
+            PreparedStatement statement = con.prepareStatement(getMemberName);
             ResultSet resultSet = statement.executeQuery();
 
-            return resultSet.getString("ActiveModes");
+            return resultSet.getString("MemberName");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,14 +134,86 @@ public class Constructs {
 
     }
 
-    public static void setActiveModes(Player player, String modes) {
+    public static void setMemberName(Player player, String memberName) {
 
         try {
 
-            String setPlayerModo = "UPDATE `modesDatabase` SET `ActiveModes`='" + modes + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
+            String setMemberName = "UPDATE `discordDatabase` SET `MemberName`='" + memberName + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
 
             Connection con = SQLiteConnect.con;
-            PreparedStatement statement = con.prepareStatement(setPlayerModo);
+            PreparedStatement statement = con.prepareStatement(setMemberName);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getDateLink(Player player) {
+
+        try {
+
+            String getDateLink = "SELECT `Date` FROM `discordDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
+
+            Connection con = SQLiteConnect.con;
+            PreparedStatement statement = con.prepareStatement(getDateLink);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.getString("Date");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static void setDateLink(Player player, String date) {
+
+        try {
+
+            String setDateLink = "UPDATE `discordDatabase` SET `Date`='" + date + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
+
+            Connection con = SQLiteConnect.con;
+            PreparedStatement statement = con.prepareStatement(setDateLink);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getHoursLink(Player player) {
+
+        try {
+
+            String getHoursLink = "SELECT `Hours` FROM `discordDatabase` WHERE `Player_UUID` = '" + player.getUniqueId().toString() + "'";
+
+            Connection con = SQLiteConnect.con;
+            PreparedStatement statement = con.prepareStatement(getHoursLink);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.getString("Hours");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static void setHoursLink(Player player, String hours) {
+
+        try {
+
+            String setDateLink = "UPDATE `discordDatabase` SET `Hours`='" + hours + "' WHERE `Player_UUID`='" + player.getUniqueId().toString() + "'";
+
+            Connection con = SQLiteConnect.con;
+            PreparedStatement statement = con.prepareStatement(setDateLink);
             statement.executeUpdate();
 
         } catch (Exception e) {

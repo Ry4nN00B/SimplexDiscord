@@ -1,0 +1,15 @@
+Discord:
+  Token: "TOKEN-BOT"
+  Link: "link"
+  IDServidor: "ID_Server"
+  IDVinculado: "ID_Cargo_Verificado"
+  Cargos:
+    VIP1:
+      DiscordID: "ID_Cargo"
+      Permissão: "teste1.vip"
+    VIP2:
+      DiscordID: "ID_Cargo"
+      Permissão: "teste2.vip"
+    VIP3:
+      DiscordID: "ID_Cargo"
+      Permissão: "teste3.vip"

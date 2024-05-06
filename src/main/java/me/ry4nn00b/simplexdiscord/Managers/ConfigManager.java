@@ -1,6 +1,6 @@
-package me.ry4nn00b.dokkanranks.Utilities;
+package me.ry4nn00b.simplexdiscord.Managers;
 
-import me.ry4nn00b.dokkanranks.Main;
+import me.ry4nn00b.simplexdiscord.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

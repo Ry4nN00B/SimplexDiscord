@@ -1,6 +1,6 @@
-package me.ry4nn00b.modes.SQLite;
+package me.ry4nn00b.simplexdiscord.SQLite;
 
-import me.ry4nn00b.modes.Main;
+import me.ry4nn00b.simplexdiscord.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,9 +13,9 @@ public class SQLiteConnect {
 
     public static Connection con = null;
 
-    public static String prefix = "[RStore-Modos] ";
+    public static String prefix = Main.prefix;
 
-    public static File file = new File(Main.plugin.getDataFolder(), "Modos.db");
+    public static File file = new File(Main.plugin.getDataFolder(), "Discord.db");
 
     public static void open() {
         if(!Main.plugin.getDataFolder().exists()) {
@@ -27,10 +27,10 @@ public class SQLiteConnect {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
             Constructs.CreateTable();
-            Bukkit.getConsoleSender().sendMessage(prefix + "A conexão com o SQLite foi um sucesso!");
+            Bukkit.getConsoleSender().sendMessage(prefix + "§aA conexão com o SQLite foi um sucesso!");
         } catch (Exception e) {
             Main.plugin.getPluginLoader().disablePlugin(JavaPlugin.getPlugin(Main.class));
-            Bukkit.getConsoleSender().sendMessage(prefix + "Não foi possível efetuar a conexão com o SQLite!");
+            Bukkit.getConsoleSender().sendMessage(prefix + "§cNão foi possível efetuar a conexão com o SQLite!");
         }
     }
 
@@ -39,9 +39,9 @@ public class SQLiteConnect {
             try {
                 con.close();
                 file.delete();
-                Bukkit.getConsoleSender().sendMessage(prefix + "A conexão com o SQLite foi fechada!");
+                Bukkit.getConsoleSender().sendMessage(prefix + "§aA conexão com o SQLite foi fechada!");
             } catch (SQLException e) {
-                Bukkit.getConsoleSender().sendMessage(prefix + "Não foi possível encerrar a conexão com o SQLite!");
+                Bukkit.getConsoleSender().sendMessage(prefix + "§cNão foi possível encerrar a conexão com o SQLite!");
                 e.printStackTrace();
             }
         }
