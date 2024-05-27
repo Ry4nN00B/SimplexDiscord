@@ -5,7 +5,6 @@ import me.ry4nn00b.simplexdiscord.Main;
 import me.ry4nn00b.simplexdiscord.Managers.ConfigManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.bukkit.Bukkit;
 
@@ -16,6 +15,11 @@ public class DiscordConnect {
     public static String token = ConfigManager.getConfig("Config").getString("Discord.Token");
 
     public static void Connect(Main plugin){
+
+        if(token.equalsIgnoreCase("TOKEN-BOT")){
+            Bukkit.getConsoleSender().sendMessage(prefix + "§cInsira o token do seu bot.");
+            return;
+        }
 
         try {
 
